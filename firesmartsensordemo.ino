@@ -3,8 +3,8 @@
 #include <ArduinoJson.h>
 
 
-const char* ssid = "DC3A94"; // your wireless network name (SSID)
-const char* password = "09828667";
+const char* ssid = ""; // your wireless network name (SSID)
+const char* password = "";
 
 bool active_alarm = true;
 bool fire = true;
@@ -91,7 +91,7 @@ void loop(){
       callfireservice=true;
       }
       counter = 0;
-      sendx("There is a fire in home !!! , 911 has been called go to the app to cancel alarm if its false","pGtLg8tBiseFYh_qKDzgQ3k-u77aYE8xCJIAQZvjtn-");
+      sendx("There is a fire in home !!! , 911 has been called go to the app to cancel alarm if its false","insert api key");
       ringbuzzer();
     }
     else
@@ -99,7 +99,7 @@ void loop(){
         int tempalarmstatus = checkalarmstatus();
         if(tempalarmstatus==2)
         {
-          sendx("There is a fire in home !!! , send stop to deactivate if not after 20 min this will call 911","pGtLg8tBiseFYh_qKDzgQ3k-u77aYE8xCJIAQZvjtn-");
+          sendx("There is a fire in home !!! , send stop to deactivate if not after 20 min this will call 911","insert api key");
           ringbuzzer();
           counter++;
         }
@@ -123,7 +123,7 @@ void loop(){
     // Checks if it senses any type of smoke 
     if (analogSensor > 0)
     {
-      sendx("There is a fire in home !!! , send stop to deactivate if not after 20 min this will call 911","pGtLg8tBiseFYh_qKDzgQ3k-u77aYE8xCJIAQZvjtn-");
+      sendx("There is a fire in home !!! , send stop to deactivate if not after 20 min this will call 911","insert api key");
       updatealarmstatus("on");
       active_alarm = true;
       ringbuzzer();
@@ -176,7 +176,7 @@ void sendx(String message,String key)
   client.print("POST /trigger/");
   client.print("ESP");
   client.print("/with/key/");
-  client.print("pGtLg8tBiseFYh_qKDzgQ3k-u77aYE8xCJIAQZvjtn-");
+  client.print(key);
   client.println(" HTTP/1.1");
 
   client.println("Host: maker.ifttt.com");
